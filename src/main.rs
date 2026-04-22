@@ -341,7 +341,7 @@ fn handle_client(mut stream: TcpStream, snapshot: Arc<Mutex<SystemSnapshot>>) {
     log_event(&format!("[+] Connexion de {}", peer));
 
     // Étape 1 : demander le token
-    let _ = stream.write_all(b"TOKEN: ");
+    let _ = stream.write_all(b"TOKEN: \n");
     let mut reader = BufReader::new(stream.try_clone().expect("Clone failed"));
     let mut token_line = String::new();
     if reader.read_line(&mut token_line).is_err() || token_line.trim() != AUTH_TOKEN {
@@ -411,10 +411,9 @@ fn handle_client(mut stream: TcpStream, snapshot: Arc<Mutex<SystemSnapshot>>) {
 
 // fn main() {
 //     let snapshot = collect_snapshot().expect("Collecte échouée");
-//     println!("{}", format_response(&snapshot, "cpu"));
-//     println!("{}", format_response(&snapshot, "mem"));
-//     println!("{}", format_response(&snapshot, "ps"));
-//     println!("{}", format_response(&snapshot, "help"));
+//     println!("Test commande 'cpu':\n{}", format_response(&snapshot, "cpu"));
+//     println!("Test commande 'mem':\n{}", format_response(&snapshot, "mem"));
+//     println!("Test commande 'ps':\n{}", format_response(&snapshot, "ps"));
 // }
 
 // Main Exo 4: Serveur TCP multithreadé — Etape 1: Lancement d'un serveur TCP basique
